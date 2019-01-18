@@ -1,0 +1,13 @@
+<html>
+{% load crispy_forms_tags %}
+<head>
+	<title>Sing-Up</title>
+	</head>
+	<body>
+		<form action="" method="post"> 
+		{% csrf_token %}
+		{{ form|crispy }}
+		<button type="submit" >submit</button>
+		</form>
+	</body>
+</html>

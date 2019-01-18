@@ -1,0 +1,57 @@
+{% extends "base_html.html" %}
+
+{%  block body %}
+<div class="row">
+	<div class="col s2" >
+		{% if object.user_type == "BR" %}
+		<ul class="collection">
+    	<a href="{% url 'core:hospitallist' %}" class="collection-item">Hospital List</a>
+      <a href="{% url 'core:bloodbanklist' %}" class="collection-item">Blood Bank List</a>
+      <a href="{% url 'core:cliniclist' %}" class="collection-item">Clinic List</a>
+      <a href="{% url 'core:diagnosticslist'%}" class="collection-item">Diagnostics List</a>
+    </ul>
+  		{% endif %}
+  	{% if object.user_type == "HS" %}
+  	<ul class="collection">
+  		<a href="{% url 'core:hospitallist' %}" class="collection-item"> Patient Listt</a>
+      <a href="{% url 'core:bloodbanklist' %}" class="collection-item">Staff UserList</a>
+    </ul>
+ 			
+ 		{% endif %}
+  
+  	
+	</div>
+            
+  <div class="col s8">
+  	<h3 > User details page </h3>
+		<h4><strong>Name</strong> - -{{ object }}</h4>
+		{% if manager %}
+		<div>
+			<h4>Staff List</h4>
+			<h5>manager list</h5>
+			{% for manager in manager %}
+			<p>{{ manager }}</p>
+			{% endfor %}
+			<h5>employee list</h5>
+			{% for employee in employee %}
+			<p>{{ employee }}</p>
+			{% endfor %}
+		</div>
+		{% endif %}
+  </div>
+  <div class="col s2">
+  	{% if object.user_type == "HS" %}
+  	<ul class="collection">
+    	<a href="{% url 'core:hospitallist' %}" class="collection-item"> Add paitent</a>
+      <a href="{% url 'core:bloodbanklist' %}" class="collection-item">Staff UserList</a>
+    </ul>
+ 		{% endif %}
+  	{% if object.user_type == "BR" %}
+  	{% endif %}
+
+  	<a href= "{% url 'core:createstaffuser' %} ">Staff User create</a>
+		<a href="{% url 'logout' %}">logout	</a>
+  </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,43 @@
+{% extends "base_html.html" %}
+{%load mytage%}
+{%  block body %}
+<div class="row">
+  <div class="col s2" >
+    <ul class="collection">
+      <a href="{% url 'core:clinicappointment' %}" class="collection-item"> Add Appointment</a>
+    </ul>
+  </div>
+  <div class="col s8">
+    <h4>{{ obj }}</h4>
+    <div>
+      <h5>Appointment</h5>
+      {% if request.user|check_permission:'custom_can_view' %}
+      <table>
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Time</th>
+          </tr>
+        </thead>
+        {% for app in app_list %}
+        <tbody>
+          <tr>
+            <td><a href="">{{app}}</a></td>
+            <td>{{app.date}}</td>
+            <td>{{app.time}}</td>
+          </tr>
+          {% endfor %}
+      </tbody>
+      </table>{% endif %}
+    </div>
+    
+    </div>
+  </div>
+  <div class="col s2">
+    <ul class="collection">
+    </ul>
+  </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,112 @@
+{% extends "base_html.html" %}
+{%load mytage%}
+{%  block body %}
+<div class="row">
+	<div class="col s2" >
+    <ul class="collection">
+      <a href="{% url 'core:hospitallist' %}" class="collection-item"> Patient Listt</a>
+      <a href="{% url 'core:bloodbanklist' %}" class="collection-item">Staff UserList</a>
+    </ul>
+  </div>
+            
+<div class="col s8">
+    <h3 > User details page </h3>
+    <h4><strong>Name</strong> - -{{ obj }}</h4>
+    <div>
+      <h5>Staff list</h5>
+      <table>
+        <thead>
+          <tr>
+              <th>Staff</th>
+              <th>View Product</th>
+              <th>Add Product</th>
+          </tr>
+        </thead>
+        {% for staff in staff_list %}
+        <tbody>
+          <tr>
+            <td>{{staff.username}}</td>
+            <td>
+              <label>
+                <input type="checkbox" onclick="update(event)" value="{{staff.id}}-view-se"
+                {% if staff|check_permission:'custom_can_view' %}
+                   checked {% endif %} />
+              <span></span>
+              </label>
+            </td>
+            <td>
+              <label>
+                <input type="checkbox" onclick="update(event)" value="{{staff.id}}-add-se"  {% if staff|check_permission:'custom_can_add' %}
+                   checked {% endif %}/>
+                <span></span>
+              </label>
+            </td>
+          </tr>
+          {% endfor %}
+      
+      </tbody>
+      </table>
+      <table>
+      <thead>
+          <tr>
+              <th>Name</th>
+              <th>Added</th>
+              <th>Type</th>
+              <th>Description</th>
+
+          </tr>
+      </thead>
+        {% for pro in pro_list %}
+        <tbody>
+          <tr>
+            <td>{{pro.name}}</td>
+            <td>
+              {{pro.added}}
+            </td>
+            <td>
+              {{pro.type}}
+            </td>
+            <td>
+              {{pro.description}}
+            </td>
+          </tr>
+          
+      </tbody>
+      {% endfor %}
+      </table>
+    </div>
+  </div>
+  <div class="col s2">
+    <ul class="collection">
+      <a href="{% url 'core:addsellerproduct' %}" class="collection-item"> 
+      Add Prodect
+      </a>
+      <a href="{% url 'core:bloodbanklist' %}" class="collection-item">Staff UserList</a>
+    </ul>
+  </div>
+</div>
+</div>
+{% endblock %}
+
+
+{% block script %}
+  <script>
+  function update(e){
+    console.log(e.target.value)
+    let val = e.target.value
+    url = "http://127.0.0.1:8000/core/uddgaddpermission"
+    $.ajax({
+       url: url ,
+       dataType: "json",
+       type: "POST",
+       data:{
+        data: val ,
+        csrfmiddlewaretoken: "{{ csrf_token }}",
+       },
+       success: function(data){
+        console.log(data)
+       }
+     })
+  }
+  </script>
+{% endblock %}

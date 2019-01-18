@@ -1,0 +1,170 @@
+{% extends "base_html.html" %}
+{%load mytage%}
+{%  block body %}
+<div class="row">
+	<div class="col s2" >  
+		<ul class="collection">
+    </ul>
+	</div>
+  <div class="col s8">
+		<h4>{{ obj }}</h4>
+      {% if request.user|check_permission:'custom_can_view' %}
+      <table>
+        <thead>
+          <tr>
+              <th>Group</th>
+              <th>NO</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for key, value in bank1.items %}
+          <tr>
+            <td>{{key}}</td>
+            <td>{% if request.user|check_permission:'custom_can_add' %}
+              <a class="btn-floating btn-large waves-effect waves-light red add-blood"><i class="material-icons" >add</i></a>
+              <span data-type={{key}}>{{ value }}</span>
+              <a class="waves-effect waves-light btn-small rm-blood">Sell</a>
+              {% else %} {{value}} {% endif %}
+          </td>
+          </tr>
+          {% endfor %}{% endif %}
+        </tbody>
+      </table>
+  </div>
+</div>
+  </div>
+  <div class="col s2">
+  </div>
+</div>
+{% endblock %}
+{% block script %} 
+<script type="text/javascript">
+  var url = "http://127.0.0.1:8000/core/updatebankview/"
+  $(".add-blood").click(function(e){
+    var url = "http://127.0.0.1:8000/core/updatebankview/"
+    let bl_type = $(e.target).parent().siblings('span').data('type');
+    let bl_no = $(e.target).parent().siblings('span').html();
+    bl_no = Number(bl_no)+1
+    console.log(bl_no);
+    $(e.target).parent().siblings('span').html(bl_no);
+    console.log(typeof bl_type);
+    let ty = bl_type + "-add"
+    $.ajax({
+       url: url ,
+       dataType: "json",
+       type: "POST",
+       data:{
+        bl_type: ty ,
+        csrfmiddlewaretoken: "{{ csrf_token }}",
+       },
+      success: function(data){
+        console.log("adding")
+       }
+     });
+  })
+
+  $(".rm-blood").click(function(e){
+    var url = "http://127.0.0.1:8000/core/updatebankview/"
+    let bl_type = $(e.target).siblings('span').data('type')
+    let bl_no = $(e.target).siblings('span').html()
+    bl_no = Number(bl_no)-1
+    $(e.target).siblings('span').html(bl_no)
+    let ty = bl_type +"-rm"
+    $.ajax({
+       url: url ,
+       dataType: "json",
+       type: "POST",
+       data:{
+        bl_type: ty,
+        csrfmiddlewaretoken: "{{ csrf_token }}",
+       },
+      success: function(data){
+        console.log("Removing")
+       }
+     });
+  })
+  
+</script>
+
+{% endblock %}
+
+
+
+
+ {# <table>
+        <thead>
+          <tr>
+              <th>Group</th>
+              <th>NO</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>A+</td>
+            
+            <td>
+              <a class="btn-floating btn-large waves-effect waves-light red add-blood"><i class="material-icons" >add</i></a>
+              <span data-type="a_positive">{{ bank.a_positive }}</span>
+              <a class="waves-effect waves-light btn-small rm-blood">Sell</a>
+          </td>
+          </tr>
+          <tr>
+            <td>O+</td>
+            <td>
+              <a class="btn-floating btn-large waves-effect waves-light red add-blood"><i class="material-icons" >add</i></a>
+              <span data-type="o_positive">{{ bank.o_positive }}</span>
+              <a class="waves-effect waves-light btn-small rm-blood">Sell</a>
+            </td>
+          </tr>
+          <tr>
+            <td>B+</td>
+            <td>
+              <a class="btn-floating btn-large waves-effect waves-light red add-blood"><i class="material-icons" >add</i></a>
+              <span data-type="b_positive">{{ bank.b_positive }}</span>
+              <a class="waves-effect waves-light btn-small rm-blood">Sell</a>
+            </td>
+          </tr>
+          <tr>
+            <td>AB+</td>
+            <td>
+              <a class="btn-floating btn-large waves-effect waves-light red add-blood"><i class="material-icons" >add</i></a>
+              <span data-type="ab_positive">{{ bank.ab_positive }}</span>
+              <a class="waves-effect waves-light btn-small rm-blood">Sell</a>
+            </td>
+          </tr>
+          <tr>
+            <td>A-</td>
+            <td>
+              <a class="btn-floating btn-large waves-effect waves-light red add-blood"><i class="material-icons" >add</i></a>
+              <span data-type="a_negative">{{ bank.a_negative }}</span>
+              <a class="waves-effect waves-light btn-small rm-blood">Sell</a>
+
+            </td>
+          </tr>
+          <td>O-</td>
+            <td>
+              <a class="btn-floating btn-large waves-effect waves-light red add-blood"><i class="material-icons" >add</i></a>
+              <span data-type="b_negative">{{ bank.b_negative }}</span>
+              <a class="waves-effect waves-light btn-small rm-blood">Sell</a>
+            </td>
+          </tr>
+          <tr>
+            <td>B-</td>
+            <td>
+              <a class="btn-floating btn-large waves-effect waves-light red add-blood"><i class="material-icons" >add</i></a>
+              <span data-type="b_negative">{{ bank.b_negative }}</span>
+              <a class="waves-effect waves-light btn-small rm-blood">Sell</a>
+            </td>
+          </tr>
+          <tr>
+            <td>AB-</td>
+            <td>
+              <a class="btn-floating btn-large waves-effect waves-light red add-blood"><i class="material-icons" >add</i></a>
+              <span data-type="ab_negative">{{ bank.ab_negative }}</span>
+              <a class="waves-effect waves-light btn-small rm-blood">Sell</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+ #}

@@ -1,0 +1,42 @@
+{% extends "base_html.html" %}
+
+{%  block body %}
+<div class="row">
+  <div class="col s2" >
+    <ul class="collection">
+      <a href="{% url 'core:hospitallist' %}" class="collection-item"> Patient Listt</a>
+      <a href="{% url 'core:bloodbanklist' %}" class="collection-item">Staff UserList</a>
+    </ul>
+  </div>
+  <div class="col s8">
+    <h3 > {{ object.test_paitent }} </h3>
+   
+    <div>
+      <table>
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Time</th>
+          </tr>
+        </thead>
+        {% for ap in test_paitent %}
+        <tbody>
+          <tr>
+            <td><a href="{% url 'core:testuserlist' ap.id %}">{{ap}}</a></td>
+            <td>{{ap}}</td>
+            <td>{{ap.time}}</td>
+          </tr>
+          {% endfor %}
+      </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col s2">
+    <ul class="collection">
+      <a href="{% url 'core:adddignostictest' %}" class="collection-item"> Add Test</a>
+      <a href="{% url 'core:bloodbanklist' %}" class="collection-item">Staff UserList</a>
+    </ul>
+  </div>
+</div>
+{% endblock %}

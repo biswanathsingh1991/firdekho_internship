@@ -1,0 +1,75 @@
+{% extends "base_html.html" %}
+
+{%  block body %}
+<div class="row">
+  <div class="col s2" >
+    <ul class="collection">
+      <a href="{% url 'core:hospitallist' %}" class="collection-item"> Patient Listt</a>
+      <a href="{% url 'core:bloodbanklist' %}" class="collection-item">Staff UserList</a>
+    </ul>
+  </div>
+  <div class="col s8">
+    <h3 > User details page </h3>
+    <h4><strong>Name</strong> - -{{ obj }}</h4>
+    <div>
+      <h5>Test list</h5>
+      <table>
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Time</th>
+          </tr>
+        </thead>
+        {% for ap in test_li %}
+        <tbody>
+          <tr>
+            <td><a href="{% url 'core:testuserlist' ap.id %}">{{ap}}</a></td>
+            <td>{{ap.date}}</td>
+            <td>{{ap.time}}</td>
+          </tr>
+          {% endfor %}
+      </tbody>
+      </table>
+    </div>
+    <div>
+      <h5>Staff list</h5>
+      <table>
+        <thead>
+          <tr>
+              <th>Staff</th>
+              <th>view</th>
+              <th>Add Test</th>
+          </tr>
+        </thead>
+        {% for staff in staff_list %}
+        <tbody>
+          <tr>
+            <td>{{staff.username}}</td>
+            <td>
+              <label>
+                <input type="checkbox" />
+                <span></span>
+              </label>
+            </td>
+            <td>
+              <label>
+                <input type="checkbox" />
+                <span></span>
+              </label>
+            </td>
+          </tr>
+          {% endfor %}
+      </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col s2">
+    <ul class="collection">
+      <a href="{% url 'core:adddignostictest' %}" class="collection-item"> Add Test</a>
+      <a href="{% url 'core:bloodbanklist' %}" class="collection-item">Staff UserList</a>
+    </ul>
+  </div>
+</div>
+{% endblock %}
+

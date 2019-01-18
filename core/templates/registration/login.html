@@ -1,0 +1,14 @@
+{% extends 'base_html.html' %}
+
+{% block body %}
+
+<div class="row">
+  <div class="col s3 offset-s3">
+	<form action="" method="post" class="input-field">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit">submit</button>
+	</form>
+	</div>
+</div>
+{% endblock %}

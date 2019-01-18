@@ -1,0 +1,49 @@
+{% extends "base_html.html" %}
+{%load mytage%}
+{%  block body %}
+<div class="row">
+  <div class="col s2" >
+    <ul class="collection">
+      <a href="{% url 'core:addsellerproduct' %}" class="collection-item"> 
+      Add Prodect
+      </a>
+      
+    </ul>
+  </div>
+  <div class="col s8">
+    <h4><strong>Name</strong> - -{{ obj }}</h4>
+    <h4>Product list</h4>
+    {% if request.user|check_permission:'custom_can_view' %}
+      <table>
+      <thead>
+          <tr>
+              <th>Name</th>
+              <th>Added</th>
+              <th>Type</th>
+              <th>Description</th>
+          </tr>
+      </thead>
+        {% for pro in pro_list %}
+        <tbody>
+          <tr>
+            <td>{{pro.name}}</td>
+            <td>
+              {{pro.added}}
+            </td>
+            <td>
+              {{pro.type}}
+            </td>
+            <td>
+              {{pro.description}}
+            </td>
+          </tr>
+      </tbody>
+      {% endfor %}
+    </table>{% endif %}
+  </div>
+  <div class="col s2">
+    
+  </div>
+</div>
+{% endblock %}
+

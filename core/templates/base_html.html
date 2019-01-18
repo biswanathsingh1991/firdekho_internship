@@ -1,0 +1,43 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <title>{% block title %} {% endblock %}</title>
+    </head>
+
+    <body>
+
+      <nav>
+        <div class="nav-wrapper">
+          <a href="#" class="brand-logo">NavBar</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            {% if user.is_authenticated %}
+            {# <li><a href= "{% url 'core:createstaffuser' %} ">Create Staff</a></li> #}
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+            <li><a href="{% url 'login1' %}">Login</a></li>
+            <li><a href="{% url 'core:singup' %}">Singup</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
+      {% block body %}
+      <div class="container"></div>
+       {% endblock %}
+<script type = "text/javascript" src = "https://code.jquery.com/jquery-3.3.1.js"></script>
+      <!--JavaScript at end of body for optimized loading-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js">
+      </script>
+      
+       {% block script %} 
+       {% endblock %}
+    </body>
+  </html>
+        

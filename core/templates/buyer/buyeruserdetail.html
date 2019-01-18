@@ -1,0 +1,78 @@
+{% extends "base_html.html" %}
+
+{%  block body %}
+<div class="row">
+	<div class="col s2" >
+		<ul class="collection">
+    	<a href="{% url 'core:hospitallist' %}" class="collection-item">Hospital List</a>
+      <a href="{% url 'core:bloodbanklist' %}" class="collection-item">Blood Bank List</a>
+      <a href="{% url 'core:cliniclist' %}" class="collection-item">Clinic List</a>
+      <a href="{% url 'core:diagnosticslist'%}" class="collection-item">Diagnostics List</a>
+      <a href="{% url 'core:clinicappointment' %}" class="collection-item"> Add Appointment</a>
+    </ul>
+	</div>
+            
+  <div class="col s8">
+  	<h3 > User details page </h3>
+		<h4><strong>Name</strong> - - {{obj.username}} {{context}}
+    </h4>
+		<div>
+			<h5>Clinic appointment list</h5>
+			
+				<div>
+					     <table>
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Time</th>
+          </tr>
+        </thead>
+				{% for ap in app_list %}
+        <tbody>
+          <tr>
+            <td>{{ap}}</td>
+            <td>{{ap.date}}</td>
+            <td>{{ap.time}}</td>
+          </tr>
+          {% endfor %}
+          
+        </tbody>
+      </table>
+		</div>
+    <div>
+      <h5>Hospital appointment list</h5>
+      <table>
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Time</th>
+          </tr>
+        </thead>
+        {% for ap in hs_app_list %}
+        <tbody>
+          <tr>
+            <td>{{ap}}</td>
+            <td>{{ap.date}}</td>
+            <td>{{ap.time}}</td>
+          </tr>
+          {% endfor %}
+          
+        </tbody>
+      </table>
+    </div>
+			
+		</div>		
+  </div>
+  <div class="col s2">
+  	<ul class="collection">
+      <a href="{% url 'core:purchaseproduct' %}" class="collection-item">Purches Product</a>
+      <a href="{% url 'core:bloodbanklist' %}" class="collection-item">Blood Bank List</a>
+      <a href="{% url 'core:cliniclist' %}" class="collection-item">Clinic List</a>
+      <a href="{% url 'core:diagnosticslist'%}" class="collection-item">Diagnostics List</a>
+    </ul>
+  </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,31 @@
+{% extends 'base_html.html' %}
+
+{% block title %}
+  Appointment
+{% endblock %}
+{% block body %}
+<div class="row" >
+  <div class="col s5 offset-s3">
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submin">Submit</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+{% block script %}
+
+<script>
+   $(document).ready(function(){
+    $('select').formSelect();
+  });
+
+$(document).ready(function(){
+    $('.datepicker').datepicker({
+      format: 'yyyy-mm-dd',
+    });
+  });
+
+</script>
+{% endblock %}
